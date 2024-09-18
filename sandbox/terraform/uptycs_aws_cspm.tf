@@ -4,6 +4,10 @@ locals {
       external_id        = "c161b4cc-b028-5e18-b2cb-7a81e37db881",
       integration_prefix = "GiriUptycsIntegration"
     },
+    "924967513276" = {
+      external_id        = "f5eb7b3f-152d-5fce-ab80-6ad3c95f25de",
+      integration_prefix = "GiriUptycsIntegration"
+    },
     "496028668001" = {
       external_id        = "68eb48ff-46be-5405-b824-3e2f40a70d04",
       integration_prefix = "GiriUptycsIntegration"
@@ -35,17 +39,10 @@ module "uptycs_aws_cspm" {
   external_id        = local.account_info.external_id
 }
 
-
 module "uptycs_aws_audit_logs" {
   source                     = "https://uptycs-terraform-dev.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/auditlog_integration/accounts"
   upt_account_id             = "685272795239"
   external_id                = local.cspm_integration.external_id
   integration_prefix         = local.cspm_integration.integrationPrefix
   cloudtrail_s3_bucket_names = lookup(local.cloudtrail_integration, data.aws_caller_identity.current.account_id, [])
-}
-
-module "uptycs_aws_agentless_target" {
-  source = "https://uptycs-terraform-dev.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/agentless_integration/target"
-  scanner_account_id = "794888992839"
-  integration_prefix = local.cspm_integration.integrationPrefix
 }
