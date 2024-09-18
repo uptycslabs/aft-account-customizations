@@ -1,48 +1,42 @@
 locals {
   cspm_integration = {
     "646602658615" = {
-      external_id        = "c161b4cc-b028-5e18-b2cb-7a81e37db881",
+      external_id        = "980b2db9-067e-5926-ae49-ba9022ee0e08",
       integration_prefix = "GiriUptycsIntegration"
     },
     "924967513276" = {
-      external_id        = "f5eb7b3f-152d-5fce-ab80-6ad3c95f25de",
+      external_id        = "8d79586f-6b93-5422-9916-c27ed417eb19",
       integration_prefix = "GiriUptycsIntegration"
     },
     "496028668001" = {
-      external_id        = "68eb48ff-46be-5405-b824-3e2f40a70d04",
+      external_id        = "2ff0c7dc-0fab-5027-a9f4-ff888ac0f8e5",
       integration_prefix = "GiriUptycsIntegration"
     },
     "912326510691" = {
-      external_id        = "af776340-5d83-5f05-99b1-4fd60691e641",
+      external_id        = "88c48bbc-d242-56f9-b2f5-5bcd89ea7c1d",
       integration_prefix = "GiriUptycsIntegration-TF"
     },
     "051315720372" = {
-      external_id        = "22b7a8fb-f07d-5cd3-91b6-8efecdcdd25e",
+      external_id        = "cbc60ed9-c4bc-5f29-bf14-878526f81ef2",
       integration_prefix = "GiriUptycsIntegration-TF"
     }
   }
-  cloudtrail_integration = {
-    "912326510691" = ["aws-cloudtrail-logs-794888992839-e26dd11a"]
-  }
   default_values = {
-    external_id        = "1cfe95fd-6b84-441d-a691-0a163797742a",
+    external_id        = "557a929b-39a5-4335-9fb0-c005f9cd44c3"
     integration_prefix = "UptycsIntegrationRole"
   } 
   account_info = lookup(local.cspm_integration, data.aws_caller_identity.current.account_id, local.default_values)
 }
 
 module "uptycs_aws_cspm" {
-  source             = "https://uptycs-terraform-dev.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/cspm_integration/accounts"
-
+  source             = "https://uptycs-terraform.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/cspm_integration/accounts"
   upt_account_id     = "685272795239"
   external_id        = local.account_info.external_id
   integration_prefix = local.account_info.integration_prefix
 }
 
-module "uptycs_aws_audit_logs" {
-  source                     = "https://uptycs-terraform-dev.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/auditlog_integration/accounts"
-  upt_account_id             = "685272795239"
-  external_id                = local.account_info.external_id
-  integration_prefix         = local.account_info.integration_prefix
-  cloudtrail_s3_bucket_names = lookup(local.cloudtrail_integration, data.aws_caller_identity.current.account_id, [])
+module "uptycs_aws_agentless_target" {
+  source = "https://uptycs-terraform.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/agentless_integration/target"
+  integration_prefix = "GiriScannerIntegration"
+  scanner_account_id = "646602658615"
 }
