@@ -27,7 +27,7 @@ locals {
   default_values = {
     external_id        = "1cfe95fd-6b84-441d-a691-0a163797742a",
     integration_prefix = "UptycsIntegrationRole"
-  }
+  } 
   account_info = lookup(local.cspm_integration, data.aws_caller_identity.current.account_id, local.default_values)
 }
 
@@ -35,14 +35,14 @@ module "uptycs_aws_cspm" {
   source             = "https://uptycs-terraform-dev.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/cspm_integration/accounts"
 
   upt_account_id     = "685272795239"
-  integration_prefix = local.account_info.integration_prefix
   external_id        = local.account_info.external_id
+  integration_prefix = local.account_info.integration_prefix
 }
 
 module "uptycs_aws_audit_logs" {
   source                     = "https://uptycs-terraform-dev.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/auditlog_integration/accounts"
   upt_account_id             = "685272795239"
-  external_id                = local.cspm_integration.external_id
-  integration_prefix         = local.cspm_integration.integrationPrefix
+  external_id                = local.account_info.external_id
+  integration_prefix         = local.account_info.integration_prefix
   cloudtrail_s3_bucket_names = lookup(local.cloudtrail_integration, data.aws_caller_identity.current.account_id, [])
 }
