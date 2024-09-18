@@ -2,23 +2,19 @@ locals {
   external_ids = {
     "646602658615" = {
       external_id        = "c161b4cc-b028-5e18-b2cb-7a81e37db881",
-      integration_prefix = "girionpremAFT"
-    },
-    "924967513276" = {
-      external_id        = "f5eb7b3f-152d-5fce-ab80-6ad3c95f25de",
-      integration_prefix = "girionpremaccount"
+      integration_prefix = "GiriUptycsIntegration"
     },
     "496028668001" = {
       external_id        = "68eb48ff-46be-5405-b824-3e2f40a70d04",
-      integration_prefix = "girionpremaccountcf"
+      integration_prefix = "GiriUptycsIntegration"
     },
     "912326510691" = {
       external_id        = "af776340-5d83-5f05-99b1-4fd60691e641",
-      integration_prefix = "girionpremaccount"
+      integration_prefix = "GiriUptycsIntegration-TF"
     },
     "051315720372" = {
       external_id        = "22b7a8fb-f07d-5cd3-91b6-8efecdcdd25e",
-      integration_prefix = "girionpremaccount"
+      integration_prefix = "GiriUptycsIntegration-TF"
     }
   }
   default_values = {
