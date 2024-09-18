@@ -34,9 +34,3 @@ module "uptycs_aws_cspm" {
   external_id        = local.account_info.external_id
   integration_prefix = local.account_info.integration_prefix
 }
-
-module "uptycs_aws_agentless_target" {
-  source = "https://uptycs-terraform.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/agentless_integration/target"
-  integration_prefix = "GiriScannerIntegration"
-  scanner_account_id = "646602658615"
-}
