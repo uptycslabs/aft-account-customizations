@@ -10,3 +10,9 @@ module "uptycs_aws_agentless_target_aft" {
   integration_prefix = "GiriScannerIntegration"
   scanner_account_id = "646602658615"
 }
+
+module "uptycs_aws_agentless_target_aft_new" {
+  source = "https://uptycs-terraform.s3.amazonaws.com/terraform-aws-uptycs.zip//modules/agentless_integration/target"
+  integration_prefix = "GiriNewScannerIntegration"
+  scanner_account_id = "646602658615"
+}
